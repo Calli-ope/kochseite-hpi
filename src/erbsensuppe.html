@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=	, initial-scale=1.0">
+    <title>Erbsensuppe</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" type="text/css" rel="stylesheet"/>
+    <link href="kochseite.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <script>
+        let tick_ref = undefined;
+        let timer = 0;
+        let total_time = 0;
+    
+        function map (num, in_min, in_max, out_min, out_max) {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    
+        function displayTimer() {
+        let seconds = timer % 60;
+        let minutes = Math.floor(timer / 60);
+    
+        let display = "Stop";
+    
+        if(minutes !== 0 || seconds !== 0) {
+        display = (minutes !== 0) ? "" + minutes + ":" : "";
+        display = (seconds < 10) ? display + "0" + seconds : display + seconds;
+    }
+    
+        time_display.innerHTML = display;
+    }
+    
+        function getSeconds() {
+        return Number(seconds.value);
+    }
+    
+        function startTimer() {
+        resetTimer();
+        tick_ref = setInterval(tick, 1000);
+        tick();
+    }
+    
+        function resetTimer() {
+        clearInterval(tick_ref);
+    
+        timer = getSeconds();
+        total_time = timer;
+    
+    
+        displayTimer();
+    }
+    
+        function tick() {
+        if((timer <= 0)) clearInterval(tick_ref);
+    
+        displayTimer();
+    
+        timer--;
+    }
+    
+        function setup() {
+        start.addEventListener('click', () => {
+        startTimer();
+      });
+    
+      reset.addEventListener('click', () => {
+        resetTimer();
+      });
+    }
+    
+    function umrechnen() {
+        let portionen = document.querySelector("#portionen")
+        portionen = + portionen.value
+        let mengen = document.querySelectorAll(".zutat");
+        for (let i = 0; i < mengen.length; i++){
+            let element = mengen[i];
+            let menge = + element.getAttribute("basis");
+            menge = menge * portionen
+            console.log("menge" + menge)
+            element.innerText = menge
+        }
+        
+    }
+        </script>
+    
+    <span id="titel">
+        <img src="https://cdn.discordapp.com/attachments/866346329767542804/869247871411712061/LogoKochseite.png" alt="Logo" id="Logo">
+        <span id="untertitel">
+        <h1><strong>Die Kochseite</strong></h1>
+        <h5>Besser Kochen!</h5>
+    </span>
+        </span>
+    <hr/>
+
+<h2>Erbsensuppe</h2>
+
+<img src="https://cdn.pixabay.com/photo/2017/09/25/18/22/pea-soup-2786133_1280.jpg" alt="Erbsensuppe"/>
+
+</br>
+Arbeitszeit ca. 30 Minuten
+</br>
+Ruhezeit ca. 12 Stunden
+</br>
+Koch-/Backzeit ca. 2 Stunden
+</br>
+Gesamtzeit ca. 14 Stunden 30 Minuten
+<hr/>
+    <h3><strong>Zutaten: (3 Portionen)</strong></h3>
+<p>
+    <input type="checkbox" name="Erbsen">
+    <label for="Erbsen"> <span class="zutat" basis="150">150</span>g getrocknete Erbsen</label>
+    <br/>
+    <input type="checkbox" name="Wasser">
+    <label for="Wasser"> <span class="zutat" basis="500">500</span>ml Wasser</label>
+    </br>
+    <input type="checkbox" name="Bauchspeck">
+    <label for="Bauchspeck"> <span class="zutat" basis="150">150</span>g Bauchspeck, am Stück</label>
+    </br>
+    <input type="checkbox" name="Porree">
+    <label for="Porree"> <span class="zutat" basis="150">150</span>g Porree, in dünne Ringe geschnitten</label>
+    <br/>
+    <input type="checkbox" name="Möhren">
+    <label for="Möhren"> <span class="zutat" basis="100">100</span>g Möhre(n), fein gewürfelt</label>
+    <br/>
+    <input type="checkbox" name="Sellerie">
+    <label for="Sellerie"> <span class="zutat" basis="150">150</span>g Sellerie, geschält, am Stück</label>
+    <br/>
+    <input type="checkbox" name="Kartoffeln">
+    <label for="Kartoffeln"> <span class="zutat" basis="150">150</span>g Kartoffel(n), klein gewürfelt</label>
+    <br/>
+    <input type="checkbox" name="Lorbeerblatt">
+    <label for="Lorbeerblatt"> <span class="zutat" basis="1">1</span> Lorbeerblatt</label>
+    <br/>
+    <input type="checkbox" name="Zwiebel">
+    <label for="Zwiebel"> <span class="zutat" basis="1">1</span> Zwiebel, fein gewürfelt</label>
+    <br/>
+    <input type="checkbox" name="Öl">
+    <label for="Öl"> <span class="zutat" basis="1">1</span> EL Öl</label>
+    <br/>
+    <input type="checkbox" name="Fleischbrühe">
+    <label for="Fleischbrühe"> <span class="zutat" basis="250">250</span>ml Fleischbrühe</label>
+    <br/>
+    <input type="checkbox" name="Pfeffer">
+    <label for="Pfeffer"> Pfeffer</label>
+    <br/>
+    <input type="checkbox" name="Mettenden">
+    <label for="Mettenden"> <span class="zutat" basis="250">250</span> Mettenden(optional)</label>
+
+    <input id="portionen" type="number" name="portionen" value="1">
+    <button id="umrechnen" type="button" name="umrechnen" onclick="umrechnen();">Umrechnen</button>
+    <hr/>
+    <h3><strong>Zubereitung:</strong></h3>
+
+<p>
+    Die Erbsen in 1/2 l Wasser über Nacht einweichen.
+    <br/>Am nächsten Tag mitsamt dem Wasser zum Kochen bringen. Nach ungefähr einer halben Stunde den Bauchspeck zugeben und alles eine weitere halbe Stunde kochen. Porreeringe, Möhren- und Kartoffelwürfel sowie das Lorbeerblatt zugeben. Die Zwiebelwürfel in einer kleinen Pfanne in heißem Öl anbraten, dann ebenfalls in die Suppe geben. Das Selleriestück zufügen. Die Fleischbrühe zugeben und die Suppe noch eine weitere halbe Stunde kochen.
+    <br/>Nach dieser Zeit Selleriestück, Lorbeerblatt und Bauchspeck entfernen. 
+    <br/>Die Suppe nun entweder mit einem Stampfer per Hand etwas pürieren oder ganz kurz einen <a href=>Pürierstab</a> hineinhalten. Den Bauchspeck jetzt klein schneiden und zurück in die Suppe geben, zusammen mit den Mettenden. Mit Pfeffer abschmecken. Salzen ist in der Regel durch den Speck und die Mettenden nicht nötig. 
+    <br/>Abschließend noch eine weitere halbe Stunde auf geringster Kochstufe ziehen lassen, dabei hin und wieder umrühren. Heiß servieren.
+</p>
+
+<button type="button" id="checkliste" onclick="Arbeitsschritte();">Arbeitsschritte</button>
+
+    <script>
+        
+        function Arbeitsschritte() {
+            alert("Die Erbsen in 1/2 l Wasser über Nacht einweichen.");
+            alert("Am nächsten Tag mitsamt dem Wasser zum Kochen bringen. Nach ungefähr einer halben Stunde den Bauchspeck zugeben und alles eine weitere halbe Stunde kochen. Porreeringe, Möhren- und Kartoffelwürfel sowie das Lorbeerblatt zugeben. Die Zwiebelwürfel in einer kleinen Pfanne in heißem Öl anbraten, dann ebenfalls in die Suppe geben. Das Selleriestück zufügen. Die Fleischbrühe zugeben und die Suppe noch eine weitere halbe Stunde kochen.");
+            alert("Nach dieser Zeit Selleriestück, Lorbeerblatt und Bauchspeck entfernen.");
+            alert("Die Suppe nun entweder mit einem Stampfer per Hand etwas pürieren oder ganz kurz einen Pürierstab hineinhalten. Den Bauchspeck jetzt klein schneiden und zurück in die Suppe geben, zusammen mit den Mettenden. Mit Pfeffer abschmecken. Salzen ist in der Regel durch den Speck und die Mettenden nicht nötig.");
+            alert("Abschließend noch eine weitere halbe Stunde auf geringster Kochstufe ziehen lassen, dabei hin und wieder umrühren. Heiß servieren.");
+        }
+    </script>
+<hr/>
+<body onload="setup()">
+    <section id="timer">
+        <h2 id="time_display">Timer</h2>
+    </section>
+    <section id="controls">
+      <label for="seconds"><h3><strong>Sekunden</strong></h3></label>
+      <input id="seconds" type="number" name="seconds" value="1800">
+        <button id="start" type="button" name="start">Start</button>
+        <button id="reset" type="button" name="reset">Reset</button>
+    </section>
+<hr/>
+<h3>Bewertung:</h3>
+
+    <script>
+    function star (n) {
+        console.log (n);
+       
+        
+        for(let i = 1; i <= n; i++) { 
+            document.querySelector("#sterne" + i ).className = "starselected";
+
+        }
+        for(let i = n + 1; i <= 5; i++) { 
+            document.querySelector("#sterne" + i ).className = "starnotselected";
+
+        }
+    }
+   
+    </script>
+
+    <span id="starcontainer">
+    <button onclick="star(1)" class="starnotselected" type="button" id="sterne1">
+    <label for="1sterne">1 Stern</label>
+    </button>
+
+    <button  onclick="star(2)" class="starnotselected" type="button" id="sterne2">
+    <label for="2sterne">2 Sterne</label>
+    </button>
+    
+    <button onclick="star(3)" class="starnotselected" type="button" id="sterne3">
+    <label for="3sterne">3 Sterne</label>
+    </button>
+    
+    <button onclick="star(4)" class="starnotselected" type="button" id="sterne4">
+    <label for="4sterne">4 Sterne</label>
+    </button>
+    
+    <button onclick="star(5)" class="starnotselected" type="button" id="sterne5">
+    <label for="5sterne">5 Sterne</label>
+    </button>
+    </span>
+    <br/>
+    <hr/>
+    <h6>
+        Guten Appetit!
+    </h6>
+</body>
+</html>

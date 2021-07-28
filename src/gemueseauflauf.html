@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunter Gemüseauflauf</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" type="text/css" rel="stylesheet"/>
+    <link href="kochseite.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <script>
+    let timer = 0;
+    let total_time = 0;
+
+    function map (num, in_min, in_max, out_min, out_max) {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+    function displayTimer() {
+    let seconds = timer % 60;
+    let minutes = Math.floor(timer / 60);
+
+    let display = "Stop";
+
+    if(minutes !== 0 || seconds !== 0) {
+    display = (minutes !== 0) ? "" + minutes + ":" : "";
+    display = (seconds < 10) ? display + "0" + seconds : display + seconds;
+}
+
+    time_display.innerHTML = display;
+}
+
+    function getSeconds() {
+    return Number(seconds.value);
+}
+
+    function startTimer() {
+    resetTimer();
+    tick_ref = setInterval(tick, 1000);
+    tick();
+}
+
+    function resetTimer() {
+    clearInterval(tick_ref);
+
+    timer = getSeconds();
+    total_time = timer;
+
+
+    displayTimer();
+}
+
+    function tick() {
+    if((timer <= 0)) clearInterval(tick_ref);
+
+    displayTimer();
+
+    timer--;
+}
+
+    function setup() {
+    start.addEventListener('click', () => {
+    startTimer();
+  });
+
+  reset.addEventListener('click', () => {
+    resetTimer();
+  });
+}
+
+    function umrechnen() {
+        let portionen = document.querySelector("#portionen")
+        portionen = + portionen.value
+        let mengen = document.querySelectorAll(".zutat");
+        for (let i = 0; i < mengen.length; i++){
+            let element = mengen[i];
+            let menge = + element.getAttribute("basis");
+            menge = menge * portionen
+            console.log("menge" + menge)
+            element.innerText = menge
+        }
+        
+    }
+    </script>
+
+<span id="titel">
+    <img src="https://cdn.discordapp.com/attachments/866346329767542804/869247871411712061/LogoKochseite.png" alt="Logo" id="Logo">
+    <span id="untertitel">
+    <h1><strong>Die Kochseite</strong></h1>
+    <h5>Besser Kochen!</h5>
+</span>
+    </span>
+<hr/>
+
+    <h2>Bunter Gemüseauflauf</h2>
+
+    <img src="https://cdn.pixabay.com/photo/2014/03/08/18/42/cheese-casserole-283282_1280.jpg" alt="Gemüseauflauf"/>
+
+</br>
+Arbeitszeit ca. 20 Minuten
+</br>
+Koch-/Backzeit ca. 40 Minuten
+</br>
+Gesamtzeit ca. 1 Stunde 10 Minuten
+<hr/>
+    <h3><strong>Zutaten:</strong></h3>
+<p>
+    <input type="checkbox" name="Paprikaschote">
+    <label for="Paprikaschote"> <span class="zutat" basis="0.5">0.5</span> Paprikaschote(n), rote</label>
+    <br/>
+    <input type="checkbox" name="Zucchini">
+    <label for="Zucchini"> <span class="zutat" basis="0.75">0.75</span> Zucchini</label>
+    </br>
+    <input type="checkbox" name="g Brokkoli">
+    <label for="Brokkoli"> <span class="zutat" basis="150">150</span> g Brokkoli</label>
+    </br>
+    <input type="checkbox" name="Karotte">
+    <label for="Karotte"> <span class="zutat" basis="0.75">0.75</span> Karotte(n)</label>
+    <br/>
+    <input type="checkbox" name="ml Gemüsebrühe">
+    <label for="Gemüsebrühe"> <span class="zutat" basis="31.25">31.25</span> ml Gemüsebrühe</label>
+    <br/>
+    <input type="checkbox" name="g CremeFraiche">
+    <label for="CremeFraiche"> <span class="zutat" basis="62.5">62.5</span> g Creme Fraiche</label>
+    <br/>
+    <input type="checkbox" name="g Gouda">
+    <label for="Gouda"> <span class="zutat" basis="25">25</span> g Gouda, gerieben</label>
+    <br/>
+    
+
+    <input id="portionen" type="number" name="portionen" value="1">
+    <button id="umrechnen" type="button" name="umrechnen" onclick="umrechnen();">Umrechnen</button>
+<p>
+    <hr/>
+    <h3><strong>Zubereitung:</strong></h3>
+    Die Paprikaschoten in feine Streifen schneiden. Zucchini in dünne Scheiben schneiden. Brokkoli waschen und in Röschen zupfen. Die Karotten schälen und fein raspeln. 
+</br>
+    Den Ofen auf 200 °C vorheizen. Eine <a href=>Auflaufform</a> ausfetten. 
+</br>
+    Paprikastreifen, Zucchini und Brokkoli hineinschichten und die Karottenraspel auf dem Gemüse verteilen. Die Gemüsebrühe mit der Crème fraîche verrühren und über den Auflauf gießen. 
+</br>
+    Den Auflauf im Ofen 20 min backen, dann erst den Käse darüber streuen und nochmals 20 min. überbacken. 
+</br>
+    Dazu gibt es knuspriges Vollkorn-Baguette
+</p>
+
+<button type="button" id="checkliste" onclick="Arbeitsschrit();">Arbeitsschritte</button>
+
+    <script>
+        
+        function Arbeitsschrit() {
+            alert("Die Paprikaschoten in feine Streifen schneiden. Zucchini in dünne Scheiben schneiden. Brokkoli waschen und in Röschen zupfen. Die Karotten schälen und fein raspeln.");
+            alert("Den Ofen auf 200 °C vorheizen. Eine Auflaufform ausfetten.");
+            alert("Paprikastreifen, Zucchini und Brokkoli hineinschichten und die Karottenraspel auf dem Gemüse verteilen. Die Gemüsebrühe mit der Crème fraîche verrühren und über den Auflauf gießen.");
+            alert("Den Auflauf im Ofen 20 min backen, dann erst den Käse darüber streuen und nochmals 20 min. überbacken.");
+        }
+    </script>
+<hr/>
+<body onload="setup()">
+    <section id="timer">
+        <h2 id="time_display">Timer</h2>
+    </section>
+    <section id="controls">
+      <label for="seconds"><h3><strong>Sekunden</strong></h3></label>
+      <input id="seconds" type="number" name="seconds" value="1200">
+        <button id="start" type="button" name="start">Start</button>
+        <button id="reset" type="button" name="reset">Reset</button>
+    </section>
+    <hr/>
+    <h3>Bewertung:</h3>
+
+    <script>
+    function star (n) {
+        console.log (n);
+       
+        
+        for(let i = 1; i <= n; i++) { 
+            document.querySelector("#sterne" + i ).className = "starselected";
+
+        }
+        for(let i = n + 1; i <= 5; i++) { 
+            document.querySelector("#sterne" + i ).className = "starnotselected";
+
+        }
+    }
+
+   
+    
+    </script>
+
+    <span id="starcontainer">
+    <button onclick="star(1)" class="starnotselected" type="button" id="sterne1">
+    <label for="1sterne">1 Stern</label>
+    </button>
+
+    <button  onclick="star(2)" class="starnotselected" type="button" id="sterne2">
+    <label for="2sterne">2 Sterne</label>
+    </button>
+    
+    <button onclick="star(3)" class="starnotselected" type="button" id="sterne3">
+    <label for="3sterne">3 Sterne</label>
+    </button>
+    
+    <button onclick="star(4)" class="starnotselected" type="button" id="sterne4">
+    <label for="4sterne">4 Sterne</label>
+    </button>
+    
+    <button onclick="star(5)" class="starnotselected" type="button" id="sterne5">
+    <label for="5sterne">5 Sterne</label>
+    </button>
+    </span>
+    
+    <br/>
+    <hr/>
+    <h6>
+        Guten Appetit!
+    </h6>
+</body>
+</html>

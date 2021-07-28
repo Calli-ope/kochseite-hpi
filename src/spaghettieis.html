@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaghetti-Eis</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" type="text/css" rel="stylesheet"/>
+    <link href="kochseite.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <script>
+    let tick_ref = undefined;
+    let timer = 0;
+    let total_time = 0;
+
+    function map (num, in_min, in_max, out_min, out_max) {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+    function displayTimer() {
+    let seconds = timer % 60;
+    let minutes = Math.floor(timer / 60);
+
+    let display = "Stop";
+
+    if(minutes !== 0 || seconds !== 0) {
+    display = (minutes !== 0) ? "" + minutes + ":" : "";
+    display = (seconds < 10) ? display + "0" + seconds : display + seconds;
+}
+
+    time_display.innerHTML = display;
+}
+
+    function getSeconds() {
+    return Number(seconds.value);
+}
+
+    function startTimer() {
+    resetTimer();
+    tick_ref = setInterval(tick, 1000);
+    tick();
+}
+
+    function resetTimer() {
+    clearInterval(tick_ref);
+
+    timer = getSeconds();
+    total_time = timer;
+
+
+    displayTimer();
+}
+
+    function tick() {
+    if((timer <= 0)) clearInterval(tick_ref);
+
+    displayTimer();
+
+    timer--;
+}
+
+    function setup() {
+    start.addEventListener('click', () => {
+    startTimer();
+  });
+
+  reset.addEventListener('click', () => {
+    resetTimer();
+  });
+}
+
+    function umrechnen() {
+        let portionen = document.querySelector("#portionen")
+        portionen = + portionen.value
+        let mengen = document.querySelectorAll(".zutat");
+        for (let i = 0; i < mengen.length; i++){
+            let element = mengen[i];
+            let menge = + element.getAttribute("basis");
+            menge = menge * portionen
+            console.log("menge" + menge)
+            element.innerText = menge
+        }
+        
+    }
+    </script>
+
+<span id="titel">
+    <img src="https://cdn.discordapp.com/attachments/866346329767542804/869247871411712061/LogoKochseite.png" alt="Logo" id="Logo">
+    <span id="untertitel">
+    <h1><strong>Die Kochseite</strong></h1>
+    <h5>Besser Kochen!</h5>
+</span>
+    </span>
+<hr/>
+
+    <h2>Spaghetti-Eis</h2>
+
+    <img src="https://cdn.pixabay.com/photo/2015/05/13/09/47/ice-765212__480.jpg" alt="Spaghetti-Eis"/>
+
+</br>
+    Arbeitszeit ca. 30 Minuten
+</br>
+    Ruhezeit ca. 2 Stunden
+</br>
+    Gesamtzeit ca. 2 Stunden 30 Minuten
+<hr/>
+
+    <h3><strong>Zutaten: (für 4 Becher)</strong></h3>
+<p>
+    <input type="checkbox" name="g Mascarpone">
+    <label for="Mascarpone"> <span class="zutat" basis="250">250</span> g Mascarpone</label>
+    <br/>
+    <input type="checkbox" name="g Magerquark">
+    <label for="Magerquark"> <span class="zutat" basis="250">250</span> g Magerquark</label>
+    </br>
+    <input type="checkbox" name="Puderzucker">
+    <label for="Puderzucker"> <span class="zutat" basis="50">50</span> g Puderzucker</label>
+    </br>
+    <input type="checkbox" name="Pck. Vanillezucker">
+    <label for="Vanillezucker"> <span class="zutat" basis="1">1</span> Pck. Vanillezucker</label>
+    <br/>
+    <input type="checkbox" name="EL Zitronensaft">
+    <label for="Zitronensaft"> <span class="zutat" basis="1">1</span> EL Zitronensaft</label>
+    <br/>
+    <input type="checkbox" name="Becher Sahne">
+    <label for="Sahne"> <span class="zutat" basis="1">1</span> Becher Sahne</label>
+    <br/>
+    <input type="checkbox" name="Beutel Erdbeeren">
+    <label for="Erdbeeren"> <span class="zutat" basis="0.5">0.5</span> Beutel Erdbeeren (TK), großer Beutel, evtl. frische Beeren</label>
+    <br/>
+    <input type="checkbox" name="Kuvertüre">
+    <label for="Kuvertüre"> etwas Kuvertüre, weiß, geraspelt</label>
+    <br/>
+    
+
+
+    <input id="portionen" type="number" name="portionen" value="1">
+    <button id="umrechnen" type="button" name="umrechnen" onclick="umrechnen();">Umrechnen</button>
+    <hr/>
+<p>
+    <h3><strong>Zubereitung:</strong></h3>
+    Dieses Dessert ist kein Eis, sondern eine Creme, die ähnlich wie Spaghetti-Eis aussieht und daher diesen Namen hat.
+    </br>
+    Mascarpone mit Quark, Puderzucker, Zitronensaft und Vanillezucker verrühren. Sahne steif schlagen und unterheben. 
+    </br>
+    Die Erdbeeren antauen, pürieren und mit Puderzucker nach Geschmack süßen. Dann über die Quark-Mascarponemasse geben. 
+    </br>
+    Mit geraspelter weißer Kuvertüre verzieren. Mindestens 2 Stunden im Kühlschrank kaltstellen!
+</p>
+
+<button type="button" id="checkliste" onclick="Arbeitsschritte();">Arbeitsschritte</button>
+
+    <script>
+        
+        function Arbeitsschritte() {
+            alert("Mascarpone mit Quark, Puderzucker, Zitronensaft und Vanillezucker verrühren. Sahne steif schlagen und unterheben.");
+            alert("Die Erdbeeren antauen, pürieren und mit Puderzucker nach Geschmack süßen. Dann über die Quark-Mascarponemasse geben.");
+            alert("Mit geraspelter weißer Kuvertüre verzieren. Mindestens 2 Stunden im Kühlschrank kaltstellen!");
+        }
+    </script>
+<hr/>
+<body onload="setup()">
+    <section id="timer">
+        <h2 id="time_display">Timer</h2>
+    </section>
+    <section id="controls">
+      <label for="seconds"><h3><strong>Sekunden</strong></h3></label>
+      <input id="seconds" type="number" name="seconds" value="7200">
+        <button id="start" type="button" name="start">Start</button>
+        <button id="reset" type="button" name="reset">Reset</button>
+    </section>
+
+    <hr/>
+
+    <h3>Bewertung:</h3>
+
+    <script>
+    function star (n) {
+        console.log (n);
+       
+        
+        for(let i = 1; i <= n; i++) { 
+            document.querySelector("#sterne" + i ).className = "starselected";
+
+        }
+        for(let i = n + 1; i <= 5; i++) { 
+            document.querySelector("#sterne" + i ).className = "starnotselected";
+
+        }
+    }
+
+   
+    
+    </script>
+
+    <span id="starcontainer">
+    <button onclick="star(1)" class="starnotselected" type="button" id="sterne1">
+    <label for="1sterne">1 Stern</label>
+    </button>
+
+    <button  onclick="star(2)" class="starnotselected" type="button" id="sterne2">
+    <label for="2sterne">2 Sterne</label>
+    </button>
+    
+    <button onclick="star(3)" class="starnotselected" type="button" id="sterne3">
+    <label for="3sterne">3 Sterne</label>
+    </button>
+    
+    <button onclick="star(4)" class="starnotselected" type="button" id="sterne4">
+    <label for="4sterne">4 Sterne</label>
+    </button>
+    
+    <button onclick="star(5)" class="starnotselected" type="button" id="sterne5">
+    <label for="5sterne">5 Sterne</label>
+    </button>
+    </span>
+    
+    <br/>
+    <hr/>
+    <h6>
+        Guten Appetit!
+    </h6>
+</body>
+</html>

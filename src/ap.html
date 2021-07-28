@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amerikanische Pancakes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" type="text/css" rel="stylesheet"/>
+    <link href="kochseite.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <script>
+    let tick_ref = undefined;
+    let timer = 0;
+    let total_time = 0;
+
+    function map (num, in_min, in_max, out_min, out_max) {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+    function displayTimer() {
+    let seconds = timer % 60;
+    let minutes = Math.floor(timer / 60);
+
+    let display = "Stop";
+
+    if(minutes !== 0 || seconds !== 0) {
+    display = (minutes !== 0) ? "" + minutes + ":" : "";
+    display = (seconds < 10) ? display + "0" + seconds : display + seconds;
+}
+
+    time_display.innerHTML = display;
+}
+
+    function getSeconds() {
+    return Number(seconds.value);
+}
+
+    function startTimer() {
+    resetTimer();
+    tick_ref = setInterval(tick, 1000);
+    tick();
+}
+
+    function resetTimer() {
+    clearInterval(tick_ref);
+
+    timer = getSeconds();
+    total_time = timer;
+
+
+    displayTimer();
+}
+
+    function tick() {
+    if((timer <= 0)) clearInterval(tick_ref);
+
+    displayTimer();
+
+    timer--;
+}
+
+    function setup() {
+    start.addEventListener('click', () => {
+    startTimer();
+  });
+
+  reset.addEventListener('click', () => {
+    resetTimer();
+  });
+}
+
+    function umrechnen() {
+        let portionen = document.querySelector("#portionen")
+        portionen = + portionen.value
+        let mengen = document.querySelectorAll(".zutat");
+        for (let i = 0; i < mengen.length; i++){
+            let element = mengen[i];
+            let menge = + element.getAttribute("basis");
+            menge = menge * portionen
+            console.log("menge" + menge)
+            element.innerText = menge
+        }
+        
+    }
+    </script>
+
+<span id="titel">
+    <img src="https://cdn.discordapp.com/attachments/866346329767542804/869247871411712061/LogoKochseite.png" alt="Logo" id="Logo">
+    <span id="untertitel">
+    <h1><strong>Die Kochseite</strong></h1>
+    <h5>Besser Kochen!</h5>
+</span>
+    </span>
+<hr/>
+
+<h2>Amerikanische Pancakes</h2>
+
+<img src="https://cdn.discordapp.com/attachments/866346329767542804/869224013459759164/Pancakes.jpg" alt="Pancakes"/>
+
+</br>
+Arbeitszeit ca. 10 Minuten
+</br>
+Koch-/Backzeit ca. 10 Minuten
+</br>
+Gesamtzeit ca. 20 Minuten
+<hr/>
+
+    <h3><strong>Zutaten:</strong></h3>
+<p>
+    <input type="checkbox" name="Eier">
+    <label for="Eier"> <span class="zutat" basis="3">3</span> Eier</label>
+    <br/>
+    <input type="checkbox" name="ml Milch">
+    <label for="Milch"> <span class="zutat" basis="100">100</span> ml Milch</label>
+    </br>
+    <input type="checkbox" name="ml Naturjoghurt">
+    <label for="Naturjoghurt"> <span class="zutat" basis="200">200</span> ml Naturjoghurt</label>
+    </br>
+    <input type="checkbox" name="g Mehl">
+    <label for="Mehl"> <span class="zutat" basis="150">150</span> g Mehl</label>
+    <br/>
+    <input type="checkbox" name="Pck. Backpulver">
+    <label for="Backpulver"> <span class="zutat" basis="1">1</span> Pck. Backpulver</label>
+    <br/>
+    <input type="checkbox" name="Prise Salz">
+    <label for="Salz"> <span class="zutat" basis="1">1</span> Prise (n) Salz</label>
+    <br/>
+    <input type="checkbox" name="EL Zucker">
+    <label for="Zucker"> <span class="zutat" basis="2">2</span> EL Zucker</label>
+    <br/>
+    <input type="checkbox" name="Olivenöl">
+    <label for="Olivenöl"> Olivenöl</label>
+    <br/>
+    <input type="checkbox" name="Ahornsirup">
+    <label for="Ahornsirup">Ahornsirup</label>
+    <br/>
+    <input type="checkbox" name="Beeren">
+    <label for="Beeren">Beeren (optional)</label>
+
+
+    <input id="portionen" type="number" name="portionen" value="1">
+    <button id="umrechnen" type="button" name="umrechnen" onclick="umrechnen();">Umrechnen</button>
+    <hr/>
+<p>
+    <h3><strong>Zubereitung:</strong></h3>
+    Die Eier zu einer schönen hellen Schaummasse verquirlen.
+    <br/>Milch und Naturjoghurt vermischen, ich nehme etwa 200 ml Joghurt, den Rest Milch. Ihr könnt auch mehr oder weniger Joghurt nehmen, je nachdem was Ihr gerade da habt. Das macht die Pancakes so richtig schön dick und saftig!
+    <br/>Mehl, Backpulver, Milch-Joghurt-Mischung, Salz und Zucker nach und nach zu den Eiern geben und immer schön weiter rühren. Evtl. etwas mehr Milch zufügen wenn der Teig zu dick ist. Aber er sollte schon gut dickflüssig sein.
+    <br/>Die <a href=>Pfanne</a> auf mittlerer Stufe erhitzen, jeweils etwa einen TL Öl hineingeben und nacheinander den ganzen Teig zu Pancakes verbacken. Wichtig! Ganz wenig Öl verwenden und langsam, also auf mittlerer Stufe, nicht zu heiß ausbacken.
+    <br/>Schmecken toll mit Ahornsirup, Zuckerrübensirup oder mit Frucht und Quark. 
+</p>
+
+<button type="button" id="checkliste" onclick="Arbeitsschritte();">Arbeitsschritte</button>
+
+    <script>
+        
+        function Arbeitsschritte() {
+            alert("Die Eier zu einer schönen hellen Schaummasse verquirlen.");
+            alert("Milch und Naturjoghurt vermischen, ich nehme etwa 200 ml Joghurt, den Rest Milch. Ihr könnt auch mehr oder weniger Joghurt nehmen, je nachdem was Ihr gerade da habt. Das macht die Pancakes so richtig schön dick und saftig!");
+            alert("Mehl, Backpulver, Milch-Joghurt-Mischung, Salz und Zucker nach und nach zu den Eiern geben und immer schön weiter rühren. Evtl. etwas mehr Milch zufügen wenn der Teig zu dick ist. Aber er sollte schon gut dickflüssig sein.");
+    	    alert("Die Pfanne auf mittlerer Stufe erhitzen, jeweils etwa einen TL Öl hineingeben und nacheinander den ganzen Teig zu Pancakes verbacken. Wichtig! Ganz wenig Öl verwenden und langsam, also auf mittlerer Stufe, nicht zu heiß ausbacken.");
+            alert("Schmecken toll mit Ahornsirup, Zuckerrübensirup oder mit Frucht und Quark.");
+        }
+    </script>
+<hr/>
+<body onload="setup()">
+    <section id="timer">
+        <h2 id="time_display">Timer</h2>
+    </section>
+    <section id="controls">
+      <label for="seconds"><h3><strong>Sekunden</strong></h3></label>
+      <input id="seconds" type="number" name="seconds" value="120">
+        <button id="start" type="button" name="start">Start</button>
+        <button id="reset" type="button" name="reset">Reset</button>
+    </section>
+
+    <hr/>
+
+    <h3>Bewertung:</h3>
+
+    <script>
+    function star (n) {
+        console.log (n);
+       
+        
+        for(let i = 1; i <= n; i++) { 
+            document.querySelector("#sterne" + i ).className = "starselected";
+
+        }
+        for(let i = n + 1; i <= 5; i++) { 
+            document.querySelector("#sterne" + i ).className = "starnotselected";
+
+        }
+    }
+
+   
+    
+    </script>
+
+    <span id="starcontainer">
+    <button onclick="star(1)" class="starnotselected" type="button" id="sterne1">
+    <label for="1sterne">1 Stern</label>
+    </button>
+
+    <button  onclick="star(2)" class="starnotselected" type="button" id="sterne2">
+    <label for="2sterne">2 Sterne</label>
+    </button>
+    
+    <button onclick="star(3)" class="starnotselected" type="button" id="sterne3">
+    <label for="3sterne">3 Sterne</label>
+    </button>
+    
+    <button onclick="star(4)" class="starnotselected" type="button" id="sterne4">
+    <label for="4sterne">4 Sterne</label>
+    </button>
+    
+    <button onclick="star(5)" class="starnotselected" type="button" id="sterne5">
+    <label for="5sterne">5 Sterne</label>
+    </button>
+    </span>
+    <br/>
+    <hr/>
+    <h6>
+        Guten Appetit!
+    </h6>
+</body>
+</html>
